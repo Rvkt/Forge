@@ -15,8 +15,13 @@ describe('AppController', () => {
   });
 
   describe('root', () => {
-    it('should return "Hello World!"', () => {
-      expect(appController.getHello()).toBe('Hello World!');
+    it('should return health status payload', () => {
+      const response = appController.getHealthStatus();
+      expect(response.message).toBe('Forge API is operational and healthy');
+      expect(response.data.service).toBe('forge-api');
+      expect(response.data.environment).toBeDefined();
+      expect(typeof response.data.uptimeSeconds).toBe('number');
+      expect(typeof response.data.memoryUsage.heapUsedMb).toBe('number');
     });
   });
 });
